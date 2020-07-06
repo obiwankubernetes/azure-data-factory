@@ -42,13 +42,13 @@ def print_activity_run_details(activity_run):
 def main():
 
     # Azure subscription ID
-    subscription_id = '57a30d11-5ae0-4fe4-86b4-48412bbfcd09'
+    subscription_id = '<id>'
 
     # This program creates this resource group. If it's an existing resource group, comment out the code that creates the resource group
-    rg_name = 'YoutubeStatsResourceGroup'
+    rg_name = '<rgname>'
 
     # The data factory name. It must be globally unique.
-    df_name = 'ytdatablobtosql'
+    df_name = '<dfname>'
 
     # Specify your Active Directory client ID, client secret, and tenant ID
     # credentials = ServicePrincipalCredentials(client_id='<Active Directory application/client ID>', secret='<client secret>', tenant='<Active Directory tenant ID>')
@@ -72,7 +72,7 @@ def main():
 
     # create a linked service
     # Create an Azure Storage linked service
-    ls_name = 'storageLinkedService'
+    ls_name = '<lsname>'
 
     # IMPORTANT: specify the name and key of your Azure Storage account.
     storage_string = SecureString(value='DefaultEndpointsProtocol=https;AccountName=<storageaccountname>;AccountKey=<storageaccountkey>')
@@ -86,7 +86,7 @@ def main():
     # one for blob storage (input)
     ds_name = 'ds_in'
     ds_ls = LinkedServiceReference(reference_name=ls_name)
-    blob_path= 'adfv2tutorial/input'
+    blob_path= '<name>/input'
     blob_filename = 'mircrosoft_visual_studio.json'
     ds_azure_blob= AzureBlobDataset(linked_service_name=ds_ls, folder_path=blob_path, file_name = blob_filename)
     ds = adf_client.datasets.create_or_update(rg_name, df_name, ds_name, ds_azure_blob)
@@ -94,11 +94,11 @@ def main():
 
     # one for cosmosdb sink (output)
     dsOut_name = 'ds_out'
-    output_blobpath = 'adfv2tutorial/output'
+    output_blobpath = '<name>/output'
     dsOut_azure_blob = AzureBlobDataset(linked_service_name=ds_ls, folder_path=output_blobpath)
     dsOut = adf_client.datasets.create_or_update(rg_name, df_name, dsOut_name, dsOut_azure_blob)
     print_item(dsOut)
 
-    uri -> https://ytstatscosmosdb.documents.azure.com:443/
-    primary key -> ymoxP8HBRDqSojd75R675C5dfNRkbF49YtuPdcnCMIsh1tsJVpKHFiLklYJe1VxMBNuQ5daegdZMOZOp1j8gRg==
-    primary connection string -> AccountEndpoint=https://ytstatscosmosdb.documents.azure.com:443/;AccountKey=ymoxP8HBRDqSojd75R675C5dfNRkbF49YtuPdcnCMIsh1tsJVpKHFiLklYJe1VxMBNuQ5daegdZMOZOp1j8gRg==;
+    uri -> https://<dbname>.documents.azure.com:443/
+    primary key -> <key>==
+    primary connection string -> AccountEndpoint=https://ytstatscosmosdb.documents.azure.com:443/;AccountKey=<key>==;
